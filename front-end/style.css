@@ -1,0 +1,95 @@
+/*UofL Branding Colors
+standard red= #C41E3A
+standard black= #000000
+standard white= #FFFFFF
+*/
+
+/* Global Styles */
+body {
+    border-top: 5px solid #C41E3A; /* UofL standard red */
+    font-family: Montserrat, sans-serif;
+    background-color: #FFFFFF; /* UofL standard white */
+    color: #000000; /* UofL standard black */
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Styles */
+header {
+    background-color: #C41E3A; /* UofL standard red */
+    color: #FFFFFF; /* UofL standard white */
+    padding: 20px;
+    text-align: center;
+}
+.logo {
+    align-items:left;
+    width: 150px;
+    height: auto;
+    margin: 20px 0;
+}
+
+/* Search Bar Styles */
+.search-bar {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+.search-bar input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #C41E3A; /* UofL standard red */
+    border-radius: 4px;
+    margin-right: 10px;
+}
+.search-bar button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #C41E3A; /* UofL standard red */
+    color: #FFFFFF; /* UofL standard white */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.search-bar button:hover {
+    background-color: #A31B33; /* Darker shade of UofL red */
+}
+
+/* Card Styles */
+.course-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.card {
+    background-color: #FFFFFF;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-header {
+    background-color: #C41E3A; /* UofL standard red */
+    color: #FFFFFF; /* UofL standard white */
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(196, 30, 58, 0.2);
+}
+
+/* Display cards container */
+.display-cards {
+    background-color: #f9f9f9;
+    padding: 20px 0;
+}
