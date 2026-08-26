@@ -1,2 +1,2 @@
 # Programmer-Challenge
-Turning a catalog into a web page that displays the information neatly.
+Turning a course catalog into a web page that displays the information neatly.
