@@ -5,13 +5,15 @@ standard white= #FFFFFF
 */
 
 /* Global Styles */
+* {
+    box-sizing: border-box;
+}
+
 body {
     border-top: 5px solid #C41E3A; /* UofL standard red */
     font-family: Montserrat, sans-serif;
     background-color: #FFFFFF; /* UofL standard white */
     color: #000000; /* UofL standard black */
-    flex-direction: column;
-    align-items: center;
     margin: 0;
     padding: 0;
 }
@@ -32,16 +34,26 @@ header {
 
 /* Search Bar Styles */
 .search-bar {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px 16px 8px;
+}
+.search-bar label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+.search-controls {
     display: flex;
-    justify-content: center;
-    margin: 20px 0;
+    gap: 10px;
 }
 .search-bar input {
+    min-width: 0;
+    flex: 1;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #C41E3A; /* UofL standard red */
     border-radius: 4px;
-    margin-right: 10px;
 }
 .search-bar button {
     padding: 10px 20px;
@@ -59,11 +71,24 @@ header {
 /* Card Styles */
 .course-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: 1fr;
     gap: 20px;
     padding: 20px;
     max-width: 1400px;
     margin: 0 auto;
+}
+
+/* Status Message Styles */
+.status-message {
+    max-width: 900px;
+    min-height: 24px;
+    margin: 8px auto;
+    padding: 0 16px;
+    color: #444;
+}
+.status-message.error {
+    color: #9f1730;
+    font-weight: bold;
 }
 
 .card {
@@ -82,6 +107,21 @@ header {
     font-size: 18px;
     font-weight: bold;
 }
+.card-header h2 {
+    margin: 0 0 6px;
+    font-size: 1.2rem;
+}
+.card-header span {
+    font-size: 0.9rem;
+}
+.card-body {
+    padding: 16px;
+}
+.card-title {
+    margin-top: 0;
+    font-size: 1.05rem;
+    font-weight: bold;
+}
 
 .card:hover {
     transform: translateY(-5px);
@@ -92,4 +132,33 @@ header {
 .display-cards {
     background-color: #f9f9f9;
     padding: 20px 0;
+}
+
+
+/* Responsive for larger screens*/
+@media (min-width: 700px) {
+    .course-cards {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        padding: 24px;
+    }
+    .search-bar {
+        padding-top: 32px;
+    }
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 699px) {
+    .course-cards {
+        grid-template-columns: 1fr;
+        padding: 16px;
+    }
+    .search-bar {
+        padding: 16px;
+    }
+    .search-controls {
+        flex-direction: column;
+    }
+    .search-bar input, .search-bar button {
+        width: 100%;
+    }
 }
