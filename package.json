@@ -1,0 +1,14 @@
+{
+  "name": "uofl-course-catalog",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A searchable UofL course catalog.",
+  "main": "back-end/server.js",
+  "scripts": {
+    "start": "node back-end/server.js",
+    "build-data": "node back-end/convert-csv.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

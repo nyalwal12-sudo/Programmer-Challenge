@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 
-<html lang = "en">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>Course Catalog Display</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UofL Course Catalog</title>
     <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 
@@ -21,17 +22,24 @@
 
     <!--Search Bar-->
 
-    <div class="search-bar">
-        <input type="text" id="descr">
-        <button id="getCard" type="button">Search</button>
-    </div>
+    <main>
+        <div class="search-bar">
+            <label for="descr">Search by subject, course number, or title</label>
+            <div class="search-controls">
+                <input type="search" id="descr" placeholder="Try Chemistry">
+                <button id="getCard" type="button">Search</button>
+            </div>
+        </div>
+
+        <p id="status-message" class="status-message" role="status"></p>
 
     <!--Card Display-->
 
-    <div class="display-cards">
-        <div id="course-cards" class="course-cards"></div>
-    </div>
+        <div class="display-cards">
+            <div id="rand-cards" class="course-cards"></div>
+            <div id="course-cards" class="course-cards"></div>
+        </div>
+    </main>
 
-    <!--JavaScript-->
-    <script src="../back-end/data-storage.js"></script>
+    <script src="script.js"></script>
 </body>

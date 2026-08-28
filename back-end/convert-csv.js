@@ -1,8 +1,9 @@
-const fs = require('fs');
-const path = require('path');
+const { readFileSync, writeFileSync } = require('fs');
+const { join } = require('path');
 
-const csvPath = path.join(__dirname, '..', 'catalog dev.csv');
-const jsonPath = path.join(__dirname, 'JSONdata-storage.json');
+// Paths to CSV and JSON files
+const csvPath = join(__dirname, '..', 'catalog dev.csv');
+const jsonPath = join(__dirname, 'JSONdata-storage.json');
 
 // Parses through a CSV row and returns an array
 function parseCsvRow(row) {
@@ -34,7 +35,7 @@ function parseCsvRow(row) {
 }
 
 // Reads and converts the CSV file to JSON format
-const lines = fs.readFileSync(csvPath, 'utf8').split(/\r?\n/).filter(Boolean);
+const lines = readFileSync(csvPath, 'utf8').split(/\r?\n/).filter(Boolean);
 const headers = parseCsvRow(lines.shift());
 const courses = lines.map(line => {
     const values = parseCsvRow(line);
@@ -45,5 +46,5 @@ const courses = lines.map(line => {
 });
 
 // Writes courses to JSON file
-fs.writeFileSync(jsonPath, `${JSON.stringify(courses, null, 2)}\n`);
+writeFileSync(jsonPath, `${JSON.stringify(courses, null, 2)}\n`);
 console.log(`Converted ${courses.length} courses to ${jsonPath}`);

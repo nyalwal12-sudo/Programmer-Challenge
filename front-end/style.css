@@ -138,7 +138,7 @@ header {
 /* Responsive for larger screens*/
 @media (min-width: 700px) {
     .course-cards {
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-template-columns: 1fr;
         padding: 24px;
     }
     .search-bar {
