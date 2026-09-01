@@ -1,0 +1,24 @@
+{
+  "name": "programmer-challenge",
+  "version": "1.0.0",
+  "description": "A searchable course catalog built with Node.js, Express, HTML, CSS, and browser JavaScript.",
+  "main": "back-end/server.js",
+  "scripts": {
+    "build-data": "node back-end/convert-csv.js",
+    "start": "node back-end/server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "cors": "^2.8.5",
+    "body-parser": "^1.19.0"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "course",
+    "catalog",
+    "nodejs",
+    "express"
+  ],
+  "author": "Mina",
+  "license": "ISC"
+}
