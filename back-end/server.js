@@ -5,21 +5,27 @@ const courses = require('./JSONdata-storage.json');
 const app = express();
 const port = process.env.PORT || 5500;
 
+function filterCourses(allCourses, searchTerm = '') {
+    const normalizedSearch = String(searchTerm || '').trim().toLowerCase();
+
+    if (!normalizedSearch) {
+        return allCourses;
+    }
+
+    return allCourses.filter(course =>
+        [course.SUBJECT, course.CATALOG_NBR, course.DESCR]
+            .some(value => String(value || '').toLowerCase().includes(normalizedSearch))
+    );
+}
+
 // API ROUTE
 app.get('/api/courses', async (request, response) => {
-    const searchTerm = String(request.query.search || '').trim().toLowerCase();
-    const filteredCourses = searchTerm
-        ? courses.filter(course =>
-            [course.SUBJECT, course.CATALOG_NBR, course.DESCR]
-            .some(value => String(value || '').toLowerCase().includes(searchTerm))
-        )
-        : courses;
-
+    const filteredCourses = filterCourses(courses, request.query.search);
     response.json(filteredCourses);
 });
 
-// Serve static files AFTER API routes
-app.use(express.static(path.join(__dirname, '..', 'front-end')));
+// Serve the root website so GitHub Pages and local Express both use the same files.
+app.use(express.static(path.join(__dirname, '..')));
 
 // Start server
 app.listen(port, () => {

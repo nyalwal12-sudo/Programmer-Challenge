@@ -5,19 +5,64 @@ const searchButton = document.getElementById('getCard');
 const statusMessage = document.getElementById('status-message');
 const randCards = document.getElementById('rand-cards');
 
+function getProjectBaseUrl() {
+    const pathname = window.location.pathname.endsWith('/')
+        ? window.location.pathname
+        : `${window.location.pathname}/`;
+
+    return new URL(pathname, `${window.location.origin}`);
+}
+
+const staticCoursesUrl = new URL('back-end/JSONdata-storage.json', getProjectBaseUrl());
+
+function filterCourses(allCourses, searchTerm = '') {
+    const normalizedSearch = String(searchTerm || '').trim().toLowerCase();
+
+    if (!normalizedSearch) {
+        return allCourses;
+    }
+
+    return allCourses.filter(course =>
+        [course.SUBJECT, course.CATALOG_NBR, course.DESCR]
+            .some(value => String(value || '').toLowerCase().includes(normalizedSearch))
+    );
+}
+
+async function loadCourseData(searchTerm = '') {
+    const normalizedSearch = String(searchTerm || '').trim();
+    const apiUrl = new URL('api/courses', getProjectBaseUrl());
+
+    if (normalizedSearch) {
+        apiUrl.searchParams.set('search', normalizedSearch);
+    }
+
+    try {
+        const response = await fetch(apiUrl.href);
+
+        if (response.ok) {
+            const courses = await response.json();
+            return { courses: filterCourses(courses, normalizedSearch) };
+        }
+    } catch (error) {
+        console.warn('Express API unavailable, falling back to static JSON.', error);
+    }
+
+    const staticResponse = await fetch(staticCoursesUrl.href);
+
+    if (!staticResponse.ok) {
+        throw new Error('The course data could not be loaded.');
+    }
+
+    const courses = await staticResponse.json();
+    return { courses: filterCourses(courses, normalizedSearch) };
+}
+
 //Displays 10 random course cards under the search bar on page load
 async function displayRandomCourses() {
     setStatus('Loading random courses...');
 
-    // Gets courses
     try {
-        const response = await fetch('/api/courses');
-        const courses = await response.json();
-
-        if (!response.ok) {
-            throw new Error(courses.error || 'The course data could not be loaded.');
-        }
-
+        const { courses } = await loadCourseData();
         const randomCourses = getRandomCourses(courses, 10);
         renderCourses(randomCourses, randCards);
         setStatus(`${randomCourses.length} random course${randomCourses.length === 1 ? '' : 's'} displayed.`);
@@ -26,7 +71,6 @@ async function displayRandomCourses() {
         setStatus(error.message, true);
         console.error('Failed to load random courses:', error);
     }
-
 }
 
 //Gets a random selection of courses from a list
@@ -58,18 +102,10 @@ async function loadSearchedCourses(searchTerm = '') {
     setStatus('Loading courses...');
     randCards.replaceChildren();
 
-    // Get courses from the server
     try {
-        const query = searchTerm.trim() ? `?search=${encodeURIComponent(searchTerm.trim())}` : '';
-        const response = await fetch(`/api/courses${query}`);
-        const result = await response.json();
-
-        if (!response.ok) {
-            throw new Error(result.error || 'The course data could not be loaded.');
-        }
-
-        renderCourses(result, courseCards);
-        setStatus(`${result.length} course${result.length === 1 ? '' : 's'} found.`);
+        const { courses } = await loadCourseData(searchTerm);
+        renderCourses(courses, courseCards);
+        setStatus(`${courses.length} course${courses.length === 1 ? '' : 's'} found.`);
     } catch (error) {
         courseCards.replaceChildren();
         setStatus(error.message, true);
