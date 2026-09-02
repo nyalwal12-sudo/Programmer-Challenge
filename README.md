@@ -103,7 +103,3 @@ Programmer-Challenge/
 ```
 
 
-
-## Note
-
-Thank you for the opportunity to partake in this challenge, I learned a lot. Unfortunately, I'm going to be entirely honest with you, I don't thing my skill level is at the point where I can do this kind of thing regularly yet. I can learn and I'm willing to learn, but I had to look up a lot of specifics for this. If this really is as competitive as you say it is, I think you're better off going with someone who won't have as much of a learning curve. If you still think it's worth your time, at least take a look at it, I spent a lot of time working on it. -Sincerely, Mina
